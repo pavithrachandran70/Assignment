@@ -39,13 +39,6 @@ jobs:
         uses: SonarSource/sonarcloud-github-action@v2
         with:
           args: >
-            # -Dsonar.organization=pavithrachandran70
-            # -Dsonar.projectKey=pavithrachandran70_Assignment
-            # -Dsonar.java.binaries=Spring-Boot-Assignment/bookservice/target/classes,Spring-Boot-Assignment/libraryservice/target/classes
-            # -Dsonar.coverage.jacoco.xmlReportPaths=Spring-Boot-Assignment/bookservice/target/site/jacoco/jacoco.xml,Spring-Boot-Assignment/libraryservice/target/site/jacoco/jacoco.xml
-            # -Dsonar.exclusions=**/target/**,**/jacoco-resources/**,**/prettify.js,**/*.min.js
-            # -Dsonar.javascript.exclusions=**/prettify.js
-            # -Dsonar.coverage.exclusions=**/Librarian.java
               -Dsonar.organization=pavithrachandran70
               -Dsonar.projectKey=pavithrachandran70_Assignment
               -Dsonar.sources=bookservice/src/main/java,libraryservice/src/main/java
