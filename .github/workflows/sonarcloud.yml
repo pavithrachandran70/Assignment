@@ -38,6 +38,7 @@ jobs:
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@v2
         with:
+          projectBaseDir: Spring-Boot-Assignment
           args: >
               -Dsonar.organization=pavithrachandran70
               -Dsonar.projectKey=pavithrachandran70_Assignment
