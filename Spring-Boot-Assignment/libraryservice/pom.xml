@@ -139,6 +139,9 @@
 						</goals>
 						<configuration>
 							<outputDirectory>${project.build.directory}/site/jacoco</outputDirectory>
+							  <formats>
+                                                            <format>xml</format> 
+                                                          </formats>
 						</configuration>
 					</execution>
 				</executions>
