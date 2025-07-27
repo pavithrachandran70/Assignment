@@ -30,8 +30,7 @@ jobs:
 
       - name: Build with Maven
         run: mvn clean verify
-        working-directory: Spring-Boot-Assignment  # ✅ Change this to the folder with your pom.xml
-
+        working-directory: Spring-Boot-Assignment 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@v2
         with:
@@ -43,4 +42,4 @@ jobs:
             -Dsonar.javascript.exclusions=**/prettify.js
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        working-directory: Spring-Boot-Assignment  # ✅ Same as above
+          working-directory: Spring-Boot-Assignment  
