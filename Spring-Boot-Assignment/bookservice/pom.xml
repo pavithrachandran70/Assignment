@@ -142,6 +142,9 @@
 						</goals>
 						<configuration>
 							<outputDirectory>${project.build.directory}/site/jacoco</outputDirectory>
+							  <formats>
+                                                               <format>xml</format> <!-- ✅ Ensure this is lowercase -->
+                                                           </formats>
 						</configuration>
 					</execution>
 				</executions>
