@@ -34,7 +34,13 @@ jobs:
       - name: Build with Maven
         run: mvn clean verify
         working-directory: Spring-Boot-Assignment
-
+        
+      - name: Debug JaCoCo Reports
+        run: |
+          ls -l bookservice/target/site/jacoco/jacoco.xml
+          ls -l libraryservice/target/site/jacoco/jacoco.xml
+        working-directory: Spring-Boot-Assignment
+         
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@v2
         with:
