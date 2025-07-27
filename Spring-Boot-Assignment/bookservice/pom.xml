@@ -137,15 +137,7 @@
 				</executions>
 			</plugin>
 
-<<<<<<< HEAD
 
-
-
-
-
-=======
-			
->>>>>>> fb0ad597df557f2adc2d9f9e2cba62ab99c4d254
 		</plugins>
 	</build>
 </project>
