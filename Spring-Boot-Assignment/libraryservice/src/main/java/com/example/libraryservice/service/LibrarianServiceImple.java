@@ -44,7 +44,8 @@ public class LibrarianServiceImple implements LibrarianService {
 
     @Override
     public List<LibrarianDto> findByLibraryId(Long libraryId) {
-        return librarianRepository.findByLibraryId(libraryId).stream()
+        return librarianRepository.findByLibraryId(libraryId)
+                .stream()
                 .map(lib -> modelMapper.map(lib, LibrarianDto.class))
                 .toList();
     }

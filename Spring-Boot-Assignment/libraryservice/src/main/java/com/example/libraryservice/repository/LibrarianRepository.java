@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface LibrarianRepository extends JpaRepository<Librarian, Long> {
 
-    //fin
+
     List<Librarian> findByLibraryId(Long libraryId);
 }

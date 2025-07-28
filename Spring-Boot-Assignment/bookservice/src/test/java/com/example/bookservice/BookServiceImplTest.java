@@ -2,6 +2,7 @@ package com.example.bookservice;
 
 import com.example.bookservice.dto.BookDTO;
 import com.example.bookservice.entity.Book;
+import com.example.bookservice.exception.ErrorResponse;
 import com.example.bookservice.repository.BookRepository;
 import com.example.bookservice.service.BookService;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,6 +19,15 @@ import com.example.bookservice.service.BookServiceImpl;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+
 
 @ExtendWith(MockitoExtension.class)
 public class BookServiceImplTest {
@@ -26,6 +36,13 @@ public class BookServiceImplTest {
     private BookRepository mockRepo;
     private ModelMapper mockMapper;
     private BookService service;
+
+
+
+
+    @Autowired
+    private org.springframework.boot.test.web.client.TestRestTemplate restTemplate;
+
 
     @BeforeEach
     void setUp() {
@@ -133,5 +150,58 @@ public class BookServiceImplTest {
         assertEquals(1, result.size());
         assertEquals("Java", result.get(0).getTitle());
     }
+
+
+    @Test
+    void testFindByTitleAndPriceRange() {
+        String title = "Java";
+        double minPrice = 100;
+        double maxPrice = 500;
+
+        Book book = new Book(1L, title, "Author", 300);
+        BookDTO dto = new BookDTO();
+        dto.setTitle(title);
+
+        when(mockRepo.findByTitleAndPriceBetween(title, minPrice, maxPrice)).thenReturn(List.of(book));
+        when(mockMapper.map(book, BookDTO.class)).thenReturn(dto);
+
+        List<BookDTO> result = service.findByTitleAndPriceRange(title, minPrice, maxPrice);
+
+        assertEquals(1, result.size());
+        assertEquals("Java", result.get(0).getTitle());
+    }
+
+    @Test
+    void testFindByTitleAndAuthor_Found() {
+        String title = "Java";
+        String author = "Author";
+        Book book = new Book(1L, title, author, 300);
+        BookDTO dto = new BookDTO();
+        dto.setTitle(title);
+
+        when(mockRepo.findByTitleAndAuthor(title, author)).thenReturn(Optional.of(book));
+        when(mockMapper.map(book, BookDTO.class)).thenReturn(dto);
+
+        BookDTO result = service.findByTitleAndAuthor(title, author);
+        assertEquals("Java", result.getTitle());
+    }
+
+    @Test
+    void testFindByTitleAndAuthor_NotFound() {
+        String title = "Unknown";
+        String author = "Unknown Author";
+
+        when(mockRepo.findByTitleAndAuthor(title, author)).thenReturn(Optional.empty());
+
+        Exception exception = assertThrows(BookNotFoundException.class, () -> {
+            service.findByTitleAndAuthor(title, author);
+        });
+
+        assertEquals("Book not found with title and author", exception.getMessage());
+    }
+
+
+
+
 
 }
