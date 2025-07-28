@@ -32,21 +32,33 @@ jobs:
           restore-keys: ${{ runner.os }}-sonar
 
       - name: Build with Maven
-        run: mvn clean install
+        run: mvn clean verify
         working-directory: Spring-Boot-Assignment
-
+        
+      - name: Debug JaCoCo Reports
+        run: |
+          ls -l bookservice/target/site/jacoco/jacoco.xml
+          ls -l libraryservice/target/site/jacoco/jacoco.xml
+        working-directory: Spring-Boot-Assignment
+         
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@v2
         with:
+          projectBaseDir: Spring-Boot-Assignment
           args: >
-            -Dsonar.organization=pavithrachandran70
-            -Dsonar.projectKey=pavithrachandran70_sample
-            -Dsonar.java.binaries=Spring-Boot-Assignment/bookservice/target/classes,Spring-Boot-Assignment/libraryservice/target/classes
-            -Dsonar.coverage.jacoco.xmlReportPaths=Spring-Boot-Assignment/bookservice/target/site/jacoco/jacoco.xml,Spring-Boot-Assignment/libraryservice/target/site/jacoco/jacoco.xml
-            -Dsonar.exclusions=**/target/**,**/jacoco-resources/**,**/prettify.js,**/*.min.js
-            -Dsonar.javascript.exclusions=**/prettify.js
+              -Dsonar.organization=pavithrachandran70
+              -Dsonar.projectKey=pavithrachandran70_Assignment
+              -Dsonar.sources=bookservice/src/main/java,libraryservice/src/main/java
+              -Dsonar.tests=bookservice/src/test/java,libraryservice/src/test/java
+              -Dsonar.java.binaries=bookservice/target/classes,libraryservice/target/classes
+              -Dsonar.coverage.jacoco.xmlReportPaths=bookservice/target/site/jacoco/jacoco.xml,libraryservice/target/site/jacoco/jacoco.xml
+              -Dsonar.javascript.exclusions=**/prettify.js
         env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKENS }}
+
+
+
+   
 
    
 
