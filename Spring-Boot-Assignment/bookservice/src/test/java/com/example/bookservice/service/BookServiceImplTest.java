@@ -1,32 +1,22 @@
-package com.example.bookservice;
+package com.example.bookservice.service;
 
 import com.example.bookservice.dto.BookDTO;
 import com.example.bookservice.entity.Book;
-import com.example.bookservice.exception.ErrorResponse;
 import com.example.bookservice.repository.BookRepository;
-import com.example.bookservice.service.BookService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import com.example.bookservice.exception.BookNotFoundException;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
-import com.example.bookservice.service.BookServiceImpl;
+
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.boot.test.web.server.LocalServerPort;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 
 
 @ExtendWith(MockitoExtension.class)

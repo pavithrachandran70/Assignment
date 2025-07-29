@@ -1,7 +1,6 @@
-package com.example.bookservice;
+package com.example.bookservice.entity;
 
 
-import com.example.bookservice.entity.Book;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;

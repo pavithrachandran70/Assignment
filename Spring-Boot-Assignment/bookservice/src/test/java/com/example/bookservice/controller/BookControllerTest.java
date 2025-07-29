@@ -1,18 +1,14 @@
-package com.example.bookservice;
+package com.example.bookservice.controller;
 
 
 
-import com.example.bookservice.controller.BookController;
 import com.example.bookservice.dto.BookDTO;
-import com.example.bookservice.entity.Book;
-import com.example.bookservice.service.BookService;
 import com.example.bookservice.service.BookService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.http.ResponseEntity;
 
 import java.util.Arrays;
 import java.util.List;

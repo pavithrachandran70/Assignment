@@ -1,4 +1,4 @@
-package com.example.libraryservice;
+package com.example.libraryservice.service;
 
 
 import com.example.libraryservice.dto.BookDto;
@@ -7,7 +7,6 @@ import com.example.libraryservice.dto.LibraryDto;
 import com.example.libraryservice.entity.Library;
 import com.example.libraryservice.exception.LibraryNotFoundException;
 import com.example.libraryservice.repository.LibraryRepository;
-import com.example.libraryservice.service.LibraryServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

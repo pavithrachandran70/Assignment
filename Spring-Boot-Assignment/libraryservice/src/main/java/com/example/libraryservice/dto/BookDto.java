@@ -9,6 +9,7 @@ public class BookDto {
     private String title;
     private String author;
     private double price;
+
     public BookDto() {}
 
     public BookDto(Long id, String title, String author, Double price) {

@@ -1,16 +1,12 @@
-package com.example.libraryservice;
+package com.example.libraryservice.controller;
 
 
-import com.example.libraryservice.controller.LibraryController;
 import com.example.libraryservice.dto.LibraryDto;
-import com.example.libraryservice.entity.Library;
 import com.example.libraryservice.service.LibraryService;
-import com.example.libraryservice.service.LibraryServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.*;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
@@ -18,8 +14,9 @@ import static org.mockito.Mockito.*;
 
 class LibraryControllerTest {
 
-    @InjectMocks
-    private LibraryController controller;
+
+   @InjectMocks
+   private LibraryController controller;
 
     @Mock
     private LibraryService service;
@@ -36,7 +33,8 @@ class LibraryControllerTest {
     void testCreate() {
         when(service.create(any(LibraryDto.class))).thenReturn(sampleLibraryDto);
 
-        LibraryDto result = controller.create(sampleLibraryDto);
+        ResponseEntity<LibraryDto> response = controller.create(sampleLibraryDto);
+        LibraryDto result = response.getBody();
 
         assertNotNull(result);
         assertEquals("Central", result.getName());
@@ -47,7 +45,8 @@ class LibraryControllerTest {
     void testGetAll() {
         when(service.findAll()).thenReturn(List.of(sampleLibraryDto));
 
-        List<LibraryDto> result = controller.getAll();
+        ResponseEntity<List<LibraryDto>> response = controller.getAll();
+        List<LibraryDto> result = response.getBody();
 
         assertEquals(1, result.size());
         assertEquals("Central", result.get(0).getName());
@@ -58,7 +57,8 @@ class LibraryControllerTest {
     void testGetById() {
         when(service.findById(1L)).thenReturn(sampleLibraryDto);
 
-        LibraryDto result = controller.getById(1L);
+        ResponseEntity<LibraryDto> response = controller.getById(1L);
+        LibraryDto result = response.getBody();
 
         assertEquals("Central", result.getName());
         verify(service).findById(1L);
@@ -69,7 +69,8 @@ class LibraryControllerTest {
         LibraryDto updatedDto = new LibraryDto(1L, "Updated", "Mumbai", List.of());
         when(service.updateById(eq(1L), any(LibraryDto.class))).thenReturn(updatedDto);
 
-        LibraryDto result = controller.updateById(1L, updatedDto);
+        ResponseEntity<LibraryDto> response = controller.updateById(1L, updatedDto);
+        LibraryDto result = response.getBody();
 
         assertEquals("Updated", result.getName());
         verify(service).updateById(1L, updatedDto);
@@ -79,8 +80,9 @@ class LibraryControllerTest {
     void testDelete() {
         doNothing().when(service).deleteById(1L);
 
-        controller.deleteById(1L);
+        ResponseEntity<Void> response = controller.deleteById(1L);
 
+        assertEquals(204, response.getStatusCodeValue()); // 204 No Content
         verify(service).deleteById(1L);
     }
 
@@ -88,7 +90,8 @@ class LibraryControllerTest {
     void testGetWithBooks() {
         when(service.getLibraryWithBooks(1L)).thenReturn(sampleLibraryDto);
 
-        LibraryDto result = controller.getWithBooks(1L);
+        ResponseEntity<LibraryDto> response = controller.getWithBooks(1L);
+        LibraryDto result = response.getBody();
 
         assertEquals("Central", result.getName());
         verify(service).getLibraryWithBooks(1L);

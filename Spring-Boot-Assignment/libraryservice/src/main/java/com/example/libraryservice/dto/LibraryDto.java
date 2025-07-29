@@ -8,13 +8,6 @@ import lombok.NoArgsConstructor;
 import java.awt.print.Book;
 import java.util.List;
 
-//public class LibraryDto {
-//    private Long id;
-//    private String name;
-//    private String city;
-//    private List<BookDto> books;
-//
-//}
 
 @Data
 @NoArgsConstructor

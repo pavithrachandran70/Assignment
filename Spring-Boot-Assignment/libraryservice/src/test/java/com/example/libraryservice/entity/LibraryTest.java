@@ -1,7 +1,6 @@
-package com.example.libraryservice;
+package com.example.libraryservice.entity;
 
 
-import com.example.libraryservice.entity.Library;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

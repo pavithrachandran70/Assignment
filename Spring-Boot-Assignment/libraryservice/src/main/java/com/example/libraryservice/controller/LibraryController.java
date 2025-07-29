@@ -95,6 +95,7 @@ import com.example.libraryservice.service.LibraryService;
 import com.example.libraryservice.service.LibraryServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -109,33 +110,50 @@ public class LibraryController {
 
 
 @PostMapping
-public LibraryDto create(@RequestBody LibraryDto libraryDto) {
-
-    return service.create(libraryDto);
+//public LibraryDto create(@RequestBody LibraryDto libraryDto) {
+//
+//    return service.create(libraryDto);
+//}
+public ResponseEntity<LibraryDto> create(@RequestBody LibraryDto libraryDto) {
+    LibraryDto createdLibrary = service.create(libraryDto);
+    return ResponseEntity.status(201).body(createdLibrary); // 201 Created
 }
 
+
     @GetMapping
-    public List<LibraryDto> getAll() {
-        return service.findAll();
+    public  ResponseEntity<List<LibraryDto>> getAll() {
+        List<LibraryDto> libraries = service.findAll();
+        return ResponseEntity.ok(libraries); // 200 OK
     }
 
     @GetMapping("/{id}")
-    public LibraryDto getById(@PathVariable Long id) {
-        return service.findById(id);
+    public ResponseEntity<LibraryDto> getById(@PathVariable Long id) {
+//        return service.findById(id);
+        LibraryDto library = service.findById(id);
+        return ResponseEntity.ok(library); // 200 OK
     }
 
     @PutMapping("/{id}")
-    public LibraryDto updateById(@PathVariable Long id, @RequestBody LibraryDto libraryDto) {
-        return service.updateById(id, libraryDto);
+    public ResponseEntity<LibraryDto> updateById(@PathVariable Long id, @RequestBody LibraryDto libraryDto) {
+//        return service.updateById(id, libraryDto);
+        LibraryDto updated = service.updateById(id, libraryDto);
+        return ResponseEntity.ok(updated); // 200 OK
     }
 
     @DeleteMapping("/{id}")
-    public void deleteById(@PathVariable Long id) {
+//    public void deleteById(@PathVariable Long id) {
+//        service.deleteById(id);
+//    }
+
+    public ResponseEntity<Void> deleteById(@PathVariable Long id) {
         service.deleteById(id);
+        return ResponseEntity.noContent().build(); // 204 No Content
     }
 
     @GetMapping("/{id}/with-books")
-    public LibraryDto getWithBooks(@PathVariable Long id) {
-        return service.getLibraryWithBooks(id);
+    public ResponseEntity <LibraryDto> getWithBooks(@PathVariable Long id) {
+//        return service.getLibraryWithBooks(id);
+        LibraryDto dto = service.getLibraryWithBooks(id);
+        return ResponseEntity.ok(dto); // 200 OK
     }
 }
