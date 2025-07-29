@@ -53,7 +53,7 @@ jobs:
               -Dsonar.java.binaries=bookservice/target/classes,libraryservice/target/classes
               -Dsonar.coverage.jacoco.xmlReportPaths=bookservice/target/site/jacoco/jacoco.xml,libraryservice/target/site/jacoco/jacoco.xml
               -Dsonar.javascript.exclusions=**/prettify.js
-              -Dsonar.coverage.exclusions=**/*Application.java,**/Librarian*.java
+              -Dsonar.coverage.exclusions=**/*Application.java,**/Librarian*.java,**/config/**
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKENS }}
 
