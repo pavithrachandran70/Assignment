@@ -38,4 +38,9 @@ class BookDtoTest {
         assertEquals(b1, b2);
         assertEquals(b1.hashCode(), b2.hashCode());
     }
+    @Test
+    void testToString() {
+        BookDto dto = new BookDto();
+        assertNotNull(dto.toString());
+    }
 }

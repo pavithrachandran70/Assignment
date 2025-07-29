@@ -118,4 +118,18 @@ class BookControllerTest {
         assertEquals("Author A", result.getAuthor());
         assertEquals("Java Basics", result.getTitle());
     }
+
+    @Test
+    void testSearchBooksByTitleAndPrice_WhenMinOrMaxPriceIsNull_ShouldThrowException() {
+        IllegalArgumentException exception1 = assertThrows(IllegalArgumentException.class, () ->
+                bookController.searchBooksByTitleAndPrice("Java", null, 500.0)
+        );
+        assertEquals("Both minPrice and maxPrice are required.", exception1.getMessage());
+
+        IllegalArgumentException exception2 = assertThrows(IllegalArgumentException.class, () ->
+                bookController.searchBooksByTitleAndPrice("Java", 100.0, null)
+        );
+        assertEquals("Both minPrice and maxPrice are required.", exception2.getMessage());
+    }
+
 }

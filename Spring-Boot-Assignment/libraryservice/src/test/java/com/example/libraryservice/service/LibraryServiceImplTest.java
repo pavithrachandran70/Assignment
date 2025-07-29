@@ -16,6 +16,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.server.ResponseStatusException;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -300,6 +302,17 @@ private LibraryRepository repository;
 
         assertEquals("Library not found with id: 10", exception.getMessage());
     }
+    @Test
+    void testGetLibraryWithBooks_NullLibraryTriggersLibraryNotFoundException() {
+        when(repository.findById(99L)).thenReturn(Optional.empty());
+
+        Exception exception = assertThrows(LibraryNotFoundException.class, () -> {
+            service.getLibraryWithBooks(99L);
+        });
+
+        assertEquals("Library not found with id: 99", exception.getMessage());
+    }
+
 
 }
 
