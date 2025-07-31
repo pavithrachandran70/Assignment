@@ -110,10 +110,7 @@ public class LibraryController {
 
 
 @PostMapping
-//public LibraryDto create(@RequestBody LibraryDto libraryDto) {
-//
-//    return service.create(libraryDto);
-//}
+
 public ResponseEntity<LibraryDto> create(@RequestBody LibraryDto libraryDto) {
     LibraryDto createdLibrary = service.create(libraryDto);
     return ResponseEntity.status(201).body(createdLibrary); // 201 Created
@@ -123,37 +120,34 @@ public ResponseEntity<LibraryDto> create(@RequestBody LibraryDto libraryDto) {
     @GetMapping
     public  ResponseEntity<List<LibraryDto>> getAll() {
         List<LibraryDto> libraries = service.findAll();
-        return ResponseEntity.ok(libraries); // 200 OK
+        return ResponseEntity.ok(libraries);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<LibraryDto> getById(@PathVariable Long id) {
 //        return service.findById(id);
         LibraryDto library = service.findById(id);
-        return ResponseEntity.ok(library); // 200 OK
+        return ResponseEntity.ok(library);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<LibraryDto> updateById(@PathVariable Long id, @RequestBody LibraryDto libraryDto) {
-//        return service.updateById(id, libraryDto);
+
         LibraryDto updated = service.updateById(id, libraryDto);
-        return ResponseEntity.ok(updated); // 200 OK
+        return ResponseEntity.ok(updated);
     }
 
     @DeleteMapping("/{id}")
-//    public void deleteById(@PathVariable Long id) {
-//        service.deleteById(id);
-//    }
 
     public ResponseEntity<Void> deleteById(@PathVariable Long id) {
         service.deleteById(id);
-        return ResponseEntity.noContent().build(); // 204 No Content
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/{id}/with-books")
     public ResponseEntity <LibraryDto> getWithBooks(@PathVariable Long id) {
-//        return service.getLibraryWithBooks(id);
+
         LibraryDto dto = service.getLibraryWithBooks(id);
-        return ResponseEntity.ok(dto); // 200 OK
+        return ResponseEntity.ok(dto);
     }
 }
