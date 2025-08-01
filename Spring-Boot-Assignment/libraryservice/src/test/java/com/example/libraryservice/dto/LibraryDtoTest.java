@@ -6,59 +6,15 @@ import org.junit.jupiter.api.Test;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 class LibraryDtoTest {
 
-//
-//    @Test
-//    void testAllArgsConstructor() {
-//        BookDto book = new BookDto(1L, "Title", "Author", 100.0);
-//
-//        LibraryDto dto = new LibraryDto(1L, "Library", "City", Collections.singletonList(book));
-//
-//        assertEquals(1L, dto.getId());
-//        assertEquals("Library", dto.getName());
-//        assertEquals("City", dto.getCity());
-//        assertEquals(1, dto.getBooks().size());
-//    }
-//
-//    @Test
-//    void testNoArgsConstructorAndSetters() {
-//        LibraryDto dto = new LibraryDto();
-//        dto.setId(2L);
-//        dto.setName("My Library");
-//        dto.setCity("Chennai");
-//
-//        BookDto book1 = new BookDto();
-//        book1.setId(101L);
-//        book1.setTitle("Java");
-//        book1.setAuthor("Author X");
-//        book1.setPrice(200.0);
-//
-//        dto.setBooks(Arrays.asList(book1));
-//
-//        assertEquals(2L, dto.getId());
-//        assertEquals("My Library", dto.getName());
-//        assertEquals("Chennai", dto.getCity());
-//        assertEquals(1, dto.getBooks().size());
-//    }
-//
-//    @Test
-//    void testEqualsAndHashCode() {
-//        LibraryDto l1 = new LibraryDto(1L, "A", "B", null);
-//        LibraryDto l2 = new LibraryDto(1L, "A", "B", null);
-//
-//        assertEquals(l1, l2);
-//        assertEquals(l1.hashCode(), l2.hashCode());
-//    }
-//
-//    @Test
-//    void testToString() {
-//        LibraryDto dto = new LibraryDto();
-//        assertNotNull(dto.toString());
-//    }
+
+
 
 
     @Test
@@ -123,4 +79,70 @@ class LibraryDtoTest {
         LibraryDto dto = new LibraryDto(5L, "Lib", "Pune", null);
         assertNull(dto.getBooks());
     }
+
+    @Test
+    void testEqualsWithSameObject() {
+        LibraryDto dto = new LibraryDto();
+        assertThat(dto.equals(dto)).isTrue();
+    }
+
+    @Test
+    void testEqualsWithNull() {
+        LibraryDto dto = new LibraryDto();
+        assertThat(dto.equals(null)).isFalse();
+    }
+
+    @Test
+    void testEqualsWithDifferentClass() {
+        LibraryDto dto = new LibraryDto();
+        assertThat(dto.equals("Some String")).isFalse();
+    }
+
+    @Test
+    void testEqualsWithDifferentValues() {
+        LibraryDto dto1 = new LibraryDto(1L, "A", "City1", null);
+        LibraryDto dto2 = new LibraryDto(2L, "B", "City2", null);
+        assertThat(dto1).isNotEqualTo(dto2);
+    }
+
+    @Test
+    void testEqualsWithNullFields() {
+        LibraryDto dto1 = new LibraryDto(null, null, null, null);
+        LibraryDto dto2 = new LibraryDto(null, null, null, null);
+        assertThat(dto1).isEqualTo(dto2);
+    }
+
+    @Test
+    void testEqualsWithDifferentBooks() {
+        BookDto book1 = new BookDto(1L, "Book A", "Author A", 100.0);
+        BookDto book2 = new BookDto(2L, "Book B", "Author B", 200.0);
+
+        LibraryDto dto1 = new LibraryDto(1L, "Lib", "City", Collections.singletonList(book1));
+        LibraryDto dto2 = new LibraryDto(1L, "Lib", "City", Collections.singletonList(book2));
+
+        assertThat(dto1).isNotEqualTo(dto2); // different books list
+    }
+
+    @Test
+    void testEqualsWithDifferentName() {
+        LibraryDto l1 = new LibraryDto(1L, "Library A", "City", null);
+        LibraryDto l2 = new LibraryDto(1L, "Library B", "City", null);
+        assertThat(l1).isNotEqualTo(l2);
+    }
+
+
+    @Test
+    void testEqualsWithDifferentId() {
+        LibraryDto l1 = new LibraryDto(1L, "Library", "City", null);
+        LibraryDto l2 = new LibraryDto(2L, "Library", "City", null);
+        assertThat(l1).isNotEqualTo(l2);
+    }
+
+    @Test
+    void testEqualsWithDifferentCity() {
+        LibraryDto l1 = new LibraryDto(1L, "Library", "City A", null);
+        LibraryDto l2 = new LibraryDto(1L, "Library", "City B", null);
+        assertThat(l1).isNotEqualTo(l2);
+    }
+
 }

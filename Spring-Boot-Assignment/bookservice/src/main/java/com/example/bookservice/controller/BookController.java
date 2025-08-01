@@ -6,6 +6,7 @@ import com.example.bookservice.entity.Book;
 import com.example.bookservice.service.BookService;
 import com.example.bookservice.service.BookServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,62 +14,68 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/books")
 public class BookController {
+
     @Autowired
-    //bookservice
     private BookService service;
 
     @PostMapping
-
-    public BookDTO create(@RequestBody Book book) {
-    return service.save(book);
-}
+    public ResponseEntity<BookDTO> create(@RequestBody Book book) {
+        BookDTO created = service.save(book);
+        return ResponseEntity.ok(created); // or ResponseEntity.status(HttpStatus.CREATED).body(created);
+    }
 
     @GetMapping
-    public List<BookDTO> getAllBooks() {
-        return service.findAll();
+    public ResponseEntity<List<BookDTO>> getAllBooks() {
+        List<BookDTO> books = service.findAll();
+        return ResponseEntity.ok(books);
     }
 
     @GetMapping("/{id}")
-    public BookDTO getById(@PathVariable Long id) {
-        return service.findById(id);
+    public ResponseEntity<BookDTO> getById(@PathVariable Long id) {
+        BookDTO book = service.findById(id);
+        return ResponseEntity.ok(book);
     }
 
     @PutMapping("/{id}")
-    public BookDTO updateById(@PathVariable Long id, @RequestBody Book book) {
-        return service.updateById(id, book);
+    public ResponseEntity<BookDTO> updateById(@PathVariable Long id, @RequestBody Book book) {
+        BookDTO updated = service.updateById(id, book);
+        return ResponseEntity.ok(updated);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteById(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteById(@PathVariable Long id) {
         service.deleteById(id);
+        return ResponseEntity.noContent().build(); // 204 No Content
     }
 
     @GetMapping("/library/{libraryId}")
-    public List<BookDTO> getBooksByLibraryId(@PathVariable Long libraryId) {
-        return service.getBooksByLibraryId(libraryId);
+    public ResponseEntity<List<BookDTO>> getBooksByLibraryId(@PathVariable Long libraryId) {
+        List<BookDTO> books = service.getBooksByLibraryId(libraryId);
+        return ResponseEntity.ok(books);
     }
-    // 🔍 Scenario 1: Get books by title and price range
+
+
     @GetMapping("/search")
-    public List<BookDTO> searchBooksByTitleAndPrice(
+    public ResponseEntity<List<BookDTO>> searchBooksByTitleAndPrice(
             @RequestParam String title,
             @RequestParam(required = false) Double minPrice,
             @RequestParam(required = false) Double maxPrice) {
 
         if (minPrice == null || maxPrice == null) {
-            throw new IllegalArgumentException("Both minPrice and maxPrice are required.");
+            return ResponseEntity.badRequest().build();
         }
 
-        return service.findByTitleAndPriceRange(title, minPrice, maxPrice);
+        List<BookDTO> results = service.findByTitleAndPriceRange(title, minPrice, maxPrice);
+        return ResponseEntity.ok(results);
     }
 
-//    localhos:8092/api/books/search?title="bookname"?minPrice=100?max
 
-    // 🔍 Scenario 2: Get a book by title and author
     @GetMapping("/search/author")
-    public BookDTO searchBookByTitleAndAuthor(
+    public ResponseEntity<BookDTO> searchBookByTitleAndAuthor(
             @RequestParam String title,
             @RequestParam String author) {
-        return service.findByTitleAndAuthor(title, author);
+        BookDTO result = service.findByTitleAndAuthor(title, author);
+        return ResponseEntity.ok(result);
     }
 
 }

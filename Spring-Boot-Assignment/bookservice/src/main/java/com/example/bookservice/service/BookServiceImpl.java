@@ -15,7 +15,7 @@ public class BookServiceImpl implements BookService {
 
     private final BookRepository bookRepository;
 
-    //maps fields between Book and BookDTO objects.
+
     private final ModelMapper modelMapper;
 
     public BookServiceImpl(BookRepository repo, ModelMapper mapper) {
@@ -23,20 +23,20 @@ public class BookServiceImpl implements BookService {
         this.modelMapper = mapper;
     }
 
-    // Entity to DTO
+
     private BookDTO convertToDTO(Book book) {
         return modelMapper.map(book, BookDTO.class);
     }
 
 
-    //Saves the Book entity to the database.
+
     public BookDTO save(Book book) {
         //Returns the saved book as a BookDTO.
         return convertToDTO(bookRepository.save(book));
     }
 
     public List<BookDTO> findAll() {
-        //findAll() method from Spring Data JPA's JpaRepository.
+
         return bookRepository.findAll()
                 .stream()
                 .map(this::convertToDTO).toList();

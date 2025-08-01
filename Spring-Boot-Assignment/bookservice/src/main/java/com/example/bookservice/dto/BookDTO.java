@@ -8,7 +8,7 @@ public class BookDTO {
     private double price;
     private Long libraryId;
 
-    // Getters and setters
+
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
