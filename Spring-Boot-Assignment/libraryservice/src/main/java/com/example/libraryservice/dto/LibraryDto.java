@@ -57,4 +57,33 @@ public class LibraryDto {
         this.books = books;
     }
 
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof LibraryDto)) return false;
+        LibraryDto that = (LibraryDto) o;
+        return Objects.equals(id, that.id) &&
+                Objects.equals(name, that.name) &&
+                Objects.equals(city, that.city) &&
+                Objects.equals(books, that.books);
+    }
+
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, city, books);
+    }
+
+
+    @Override
+    public String toString() {
+        return "LibraryDto{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", city='" + city + '\'' +
+                ", books=" + books +
+                '}';
+    }
+
 }
