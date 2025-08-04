@@ -32,8 +32,7 @@ public class LibraryServiceImpl implements LibraryService {
     }
 
 
-    //Base URL to call the external Book Service.
-    //Appends library ID to this URL to fetch books belonging to a specific library.
+
     private final String BOOK_SERVICE_BASE_URL = "http://localhost:8091/api/books/library/";
 
    @Override
@@ -78,10 +77,6 @@ public LibraryDto updateById(Long id, LibraryDto dto) {
     public LibraryDto getLibraryWithBooks(Long id) {
         Library library = libraryRepository.findById(id)
                 .orElseThrow(() -> new LibraryNotFoundException("Library not found with id: " + id));
-        if (library == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Library not found");
-
-        }
 
         BookDto[] books = restTemplate.getForObject( BOOK_SERVICE_BASE_URL+ id, BookDto[].class);
         List<BookDto> bookList = Arrays.asList(books);

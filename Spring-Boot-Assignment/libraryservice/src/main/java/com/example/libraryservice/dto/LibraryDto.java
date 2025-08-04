@@ -1,28 +1,9 @@
 package com.example.libraryservice.dto;
 
 
-import lombok.*;
-
-import java.awt.print.Book;
-import java.util.List;
-
-
-//@Data
-//@NoArgsConstructor
-//@AllArgsConstructor
-//public class LibraryDto {
-//
-//
-//    private Long id;
-//    private String name;
-//    private String city;
-//    private List<BookDto> books;
-//
-//
-//}
-
 
 import java.util.List;
+
 import java.util.Objects;
 
 public class LibraryDto {
@@ -32,11 +13,10 @@ public class LibraryDto {
     private String city;
     private List<BookDto> books;
 
-    // No-args constructor
     public LibraryDto() {
     }
 
-    // All-args constructor
+
     public LibraryDto(Long id, String name, String city, List<BookDto> books) {
         this.id = id;
         this.name = name;
@@ -44,7 +24,6 @@ public class LibraryDto {
         this.books = books;
     }
 
-    // Getters and Setters
 
     public Long getId() {
         return id;
@@ -78,7 +57,7 @@ public class LibraryDto {
         this.books = books;
     }
 
-    // equals() method
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -90,13 +69,13 @@ public class LibraryDto {
                 Objects.equals(books, that.books);
     }
 
-    // hashCode() method
+
     @Override
     public int hashCode() {
         return Objects.hash(id, name, city, books);
     }
 
-    // toString() method
+
     @Override
     public String toString() {
         return "LibraryDto{" +

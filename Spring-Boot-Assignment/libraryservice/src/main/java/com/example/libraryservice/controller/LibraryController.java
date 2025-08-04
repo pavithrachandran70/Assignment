@@ -125,7 +125,7 @@ public ResponseEntity<LibraryDto> create(@RequestBody LibraryDto libraryDto) {
 
     @GetMapping("/{id}")
     public ResponseEntity<LibraryDto> getById(@PathVariable Long id) {
-//        return service.findById(id);
+
         LibraryDto library = service.findById(id);
         return ResponseEntity.ok(library);
     }
